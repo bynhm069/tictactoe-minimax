@@ -14,9 +14,10 @@ class TicTacToe:
         # Khởi tạo âm thanh
         pygame.mixer.init()
         self.music_playing = False
-        self.music_file = "C:/Users/bynh0/OneDrive/Documents/workspace/uef/year3/Artificial intelligence/Hypnotic-Puzzle3.mp3"
+        self.music_file = "tictactoe/Hypnotic-Puzzle3.mp3"
         try:
             pygame.mixer.music.load(self.music_file)
+            self.click_sound = pygame.mixer.Sound("tictactoe/pick-92276 (online-audio-converter.com).wav")
         except:
             print("Music file not found or could not be loaded.")
 
@@ -164,7 +165,7 @@ class TicTacToe:
         self.restartButton.grid(row=4, column=0, columnspan=3)
 
         # Nút Back
-        self.back_icon = PhotoImage(file="pngtree-back-arrow-backward-direction-previous-png-image_5198415.png").subsample(8, 8)
+        self.back_icon = PhotoImage(file="tictactoe/pngtree-back-arrow-backward-direction-previous-png-image_5198415.png").subsample(8, 8)
         self.returnButton = Button(self.frame1,image=self.back_icon,
             bg="#2a9d8f",activebackground="#2a9d8f",relief="flat",borderwidth=0,
             command=self.create_main_menu
@@ -226,6 +227,9 @@ class TicTacToe:
         if self.game_end:
             return
         
+        if self.click_sound:
+            self.click_sound.play()
+
         #lấy thông tin từ nút
         button = event.widget
         clicked = self.buttons.index(button) + 1
